@@ -46,10 +46,15 @@ describe('cerberus', function () {
     });
 
     it('should define a property with settings', function () {
-      var cerberus = Cerberus().add('id', { required: true });
+      var cerberus = Cerberus().add('id', { setting: true });
       assert.deepEqual(cerberus.schema.id, {
-        required: true
+        setting: true
       });
+    });
+
+    it('should add a required validator', function () {
+      var cerberus = Cerberus().add('id', { required: true });
+      assert.equal(1, cerberus.schema.id.validators.length);
     });
 
     it('should default settings to an object', function () {
@@ -95,11 +100,11 @@ function test (type, validator) {
     });
 
     it('should define a property with settings', function () {
-      var cerberus = Cerberus()[type]('name', { required: true });
+      var cerberus = Cerberus()[type]('name', { setting: true });
       assert.deepEqual(cerberus.schema.name, {
-        required: true,
+        setting: true,
         type: type,
-        validator: validator
+        validators: [validator]
       });
     });
   });

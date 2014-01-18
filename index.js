@@ -64,6 +64,14 @@ Cerberus.prototype.toJSON = function () {
 
 Cerberus.prototype.add = function (key, settings) {
   settings = settings || {};
+
+  // required
+  // TODO: this should probably be in a plugin instead?
+  if (settings.required) {
+    settings.validators = settings.validators || [];
+    settings.validators.push(function (val) { return val != null; });
+  }
+
   var schema = this.toJSON();
   schema[key] = settings;
   return new Cerberus(schema);
@@ -107,8 +115,9 @@ function generate (type, validator) {
 
   return function (key, settings) {
     settings = settings || {};
+    settings.validators = settings.validators || [];
+    settings.validators.push(validator);
     settings.type = type;
-    settings.validator = validator;
     return this.add(key, settings);
   };
 }

@@ -27,24 +27,24 @@ userSchema.toJSON();
 {
   "id": {
     "type": "string",
-    "validator": Function,
-    "required": true
+    "required": true,
+    "validators": [Function, Function],
   },
   "name": {
     "type": "string",
-    "validator": Function
+    "validators": [Function]
   },
   "email": {
     "type": "email",
-    "validator": Function
+    "validators": [Function]
   },
   "website": {
     "type": "url",
-    "validator": Function
+    "validators": [Function]
   },
   "created": {
     "type": "date",
-    "validator": Function
+    "validators": [Function]
   }
 }
 ```
@@ -72,7 +72,7 @@ userSchema.toJSON();
 
 #### #add(key, settings)
 
-  Return a new `Cerberus` schema, adding a non-typed property by `key` with optional `settings`.
+  Return a new `Cerberus` schema, adding a non-typed property by `key` with optional `settings`. If you pass a `required: true` setting, an required validator will be added.
 
 #### #remove(key)
 
