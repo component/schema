@@ -1,0 +1,16 @@
+{
+  "name": "cerberus",
+  "description": "A simple, fluent API for generating immutable schemas.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": ["index.js"],
+  "dependencies": {
+    "component/clone": "*",
+    "ianstormtaylor/is": "*",
+    "segmentio/is-email": "*",
+    "segmentio/is-url": "*"
+  },
+  "development": {
+    "component/assert": "*"
+  }
+}
