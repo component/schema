@@ -54,32 +54,31 @@ Cerberus.prototype.toJSON = function () {
 };
 
 /**
- * Return a new `Cerberus`, adding an `attr` with optional `settings`.
+ * Return a new `Cerberus` schema, adding a non-typed property by `key` with
+ * optional `settings`.
  *
- * @param {String} attr
+ * @param {String} key
  * @param {Object} settings (optional)
  * @return {Cerberus}
  */
 
-Cerberus.prototype.add =
-Cerberus.prototype.attr = function (attr, settings) {
+Cerberus.prototype.add = function (key, settings) {
   settings = settings || {};
-  settings.name = attr;
   var schema = this.toJSON();
-  schema[attr] = settings;
+  schema[key] = settings;
   return new Cerberus(schema);
 };
 
 /**
- * Return a new `Cerberus` with `attr` removed from the schema.
+ * Return a new `Cerberus` schema, removing a property by `key`.
  *
- * @param {String} attr
+ * @param {String} key
  * @return {Cerberus}
  */
 
-Cerberus.prototype.remove = function (attr) {
+Cerberus.prototype.remove = function (key) {
   var schema = this.toJSON();
-  delete schema[attr];
+  delete schema[key];
   return new Cerberus(schema);
 };
 
@@ -99,16 +98,17 @@ for (var type in types) Cerberus.prototype[type] = generate(type, types[type]);
 function generate (type, validator) {
 
   /**
-   * Create an `attr` with optional extra `settings`.
+   * Return a new `Cerberus` schema, adding a property of `type` by `key` with
+   * a `validator` and optional extra `settings`.
    *
    * @param {String} attr
    * @param {Object} settings (optional)
    */
 
-  return function (attr, settings) {
+  return function (key, settings) {
     settings = settings || {};
     settings.type = type;
     settings.validator = validator;
-    return this.attr(attr, settings);
+    return this.add(key, settings);
   };
 }
