@@ -65,8 +65,7 @@ Cerberus.prototype.toJSON = function () {
 Cerberus.prototype.add = function (key, settings) {
   settings = settings || {};
 
-  // required
-  // TODO: this should probably be in a plugin instead?
+  // required - TODO: this should probably be in a plugin instead?
   if (settings.required) {
     settings.validators = settings.validators || [];
     settings.validators.push(function (val) { return val != null; });
