@@ -70,6 +70,19 @@ Cerberus.prototype.attr = function (attr, settings) {
 };
 
 /**
+ * Return a new `Cerberus` with `attr` removed from the schema.
+ *
+ * @param {String} attr
+ * @return {Cerberus}
+ */
+
+Cerberus.prototype.remove = function (attr) {
+  var schema = this.toJSON();
+  delete schema[attr];
+  return new Cerberus(schema);
+};
+
+/**
  * Generate methods for each type.
  */
 

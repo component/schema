@@ -59,6 +59,21 @@ describe('cerberus', function () {
     });
   });
 
+  describe('#remove', function () {
+    it('should return a new cerberus instance', function () {
+      var one = Cerberus().attr('name');
+      var two = one.remove('name');
+      assert(one instanceof Cerberus);
+      assert(two instanceof Cerberus);
+      assert.notEqual(one, two);
+    });
+
+    it('should remove an attr from the schema', function () {
+      var cerberus = Cerberus().attr('name').remove('name');
+      assert(!cerberus.schema.name);
+    });
+  });
+
   for (var type in Cerberus.types) test(type, Cerberus.types[type]);
 
 });
