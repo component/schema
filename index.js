@@ -61,6 +61,7 @@ Cerberus.prototype.toJSON = function () {
  * @return {Cerberus}
  */
 
+Cerberus.prototype.add =
 Cerberus.prototype.attr = function (attr, settings) {
   settings = settings || {};
   settings.name = attr;

@@ -59,6 +59,12 @@ describe('cerberus', function () {
     });
   });
 
+  describe('#add', function () {
+    it('should be aliased to #attr for consistency', function () {
+      assert.equal(Cerberus.prototype.add, Cerberus.prototype.attr);
+    });
+  });
+
   describe('#remove', function () {
     it('should return a new cerberus instance', function () {
       var one = Cerberus().attr('name');
