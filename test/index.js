@@ -2,83 +2,83 @@
 var assert = require('assert');
 
 try {
-  var Cerberus = require('cerberus');
+  var Schema = require('schema');
 } catch (e) {
-  var Cerberus = require('..');
+  var Schema = require('..');
 }
 
-describe('cerberus', function () {
+describe('schema', function () {
 
   it('should expose a constructor', function () {
-    assert('function' == typeof Cerberus);
+    assert('function' == typeof Schema);
   });
 
   describe('.types', function () {
     it('should expose a dictionary of types', function () {
-      assert(Cerberus.types);
-      assert(Cerberus.types.array);
+      assert(Schema.types);
+      assert(Schema.types.array);
     });
   });
 
   describe('#schema', function () {
     it('should create an empty schema object', function () {
-      var cerberus = Cerberus();
-      assert.deepEqual({}, cerberus.schema);
+      var schema = Schema();
+      assert.deepEqual({}, schema.schema);
     });
   });
 
   describe('#toJSON', function () {
     it('should return a clone of the schema', function () {
-      var cerberus = Cerberus();
-      var schema = cerberus.toJSON();
-      assert.notEqual(cerberus.schema, schema);
-      assert.deepEqual({}, schema);
+      var schema = Schema();
+      var json = schema.toJSON();
+      assert.notEqual(schema.schema, json);
+      assert.deepEqual({}, json);
     });
   });
 
   describe('#add', function () {
-    it('should return a new cerberus instance', function () {
-      var one = Cerberus();
+    it('should return a new schema instance', function () {
+      var one = Schema();
       var two = one.add('name');
-      assert(one instanceof Cerberus);
-      assert(two instanceof Cerberus);
+      assert(one instanceof Schema);
+      assert(two instanceof Schema);
       assert.notEqual(one, two);
     });
 
     it('should define a property with settings', function () {
-      var cerberus = Cerberus().add('id', { setting: true });
-      assert.deepEqual(cerberus.schema.id, {
+      var schema = Schema().add('id', { setting: true });
+      assert.deepEqual(schema.schema.id, {
         setting: true
       });
     });
 
     it('should add a required validator', function () {
-      var cerberus = Cerberus().add('id', { required: true });
-      assert.equal(1, cerberus.schema.id.validators.length);
+      var schema = Schema().add('id', { required: true });
+      assert.equal(1, schema.schema.id.validators.length);
     });
 
     it('should default settings to an object', function () {
-      var cerberus = Cerberus().add('id');
-      assert.deepEqual(cerberus.schema.id, {});
+      var schema = Schema().add('id');
+      assert.deepEqual(schema.schema.id, {});
     });
   });
 
   describe('#remove', function () {
-    it('should return a new cerberus instance', function () {
-      var one = Cerberus().add('name');
+    it('should return a new schema instance', function () {
+      var one = Schema().add('name');
       var two = one.remove('name');
-      assert(one instanceof Cerberus);
-      assert(two instanceof Cerberus);
+      assert(one instanceof Schema);
+      assert(two instanceof Schema);
       assert.notEqual(one, two);
     });
 
     it('should remove a property from the schema', function () {
-      var cerberus = Cerberus().add('name').remove('name');
-      assert(!cerberus.schema.name);
+      var schema = Schema().add('name').remove('name');
+      assert(!schema.schema.name);
     });
   });
 
-  for (var type in Cerberus.types) test(type, Cerberus.types[type]);
+  for (var type in Schema.types) test(type, Schema.types[type]);
 
 });
 
@@ -91,17 +91,17 @@ describe('cerberus', function () {
 
 function test (type, validator) {
   describe('#' + type, function () {
-    it('should return a new cerberus instance', function () {
-      var one = Cerberus();
+    it('should return a new schema instance', function () {
+      var one = Schema();
       var two = one[type]('name');
-      assert(one instanceof Cerberus);
-      assert(two instanceof Cerberus);
+      assert(one instanceof Schema);
+      assert(two instanceof Schema);
       assert.notEqual(one, two);
     });
 
     it('should define a property with settings', function () {
-      var cerberus = Cerberus()[type]('name', { setting: true });
-      assert.deepEqual(cerberus.schema.name, {
+      var schema = Schema()[type]('name', { setting: true });
+      assert.deepEqual(schema.schema.name, {
         setting: true,
         type: type,
         validators: [validator]

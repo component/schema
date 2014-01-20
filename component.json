@@ -1,5 +1,5 @@
 {
-  "name": "cerberus",
+  "name": "schema",
   "description": "A simple, fluent API for generating immutable schemas.",
   "version": "0.0.1",
   "license": "MIT",

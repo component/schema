@@ -10,10 +10,10 @@ var isEmail = require('is-email');
 var isUrl = require('is-url');
 
 /**
- * Expose `Cerberus`.
+ * Expose `Schema`.
  */
 
-module.exports = exports = Cerberus;
+module.exports = exports = Schema;
 
 /**
  * Expose `types`.
@@ -33,14 +33,14 @@ var types = exports.types = {
 };
 
 /**
- * Initialize a new `Cerberus` schema with optional existing `schema`.
+ * Initialize a new `Schema` with optional existing `json`.
  *
- * @param {Object} schema (optional)
+ * @param {Object} json (optional)
  */
 
-function Cerberus (schema) {
-  if (!(this instanceof Cerberus)) return new Cerberus(schema);
-  this.schema = schema || {};
+function Schema (json) {
+  if (!(this instanceof Schema)) return new Schema(json);
+  this.schema = json || {};
 }
 
 /**
@@ -49,20 +49,20 @@ function Cerberus (schema) {
  * @return {Object}
  */
 
-Cerberus.prototype.toJSON = function () {
+Schema.prototype.toJSON = function () {
   return clone(this.schema);
 };
 
 /**
- * Return a new `Cerberus` schema, adding a non-typed property by `key` with
+ * Return a new `Schema`, adding a non-typed property by `key` with
  * optional `settings`.
  *
  * @param {String} key
  * @param {Object} settings (optional)
- * @return {Cerberus}
+ * @return {Schema}
  */
 
-Cerberus.prototype.add = function (key, settings) {
+Schema.prototype.add = function (key, settings) {
   settings = settings || {};
 
   // required - TODO: this should probably be in a plugin instead?
@@ -73,27 +73,27 @@ Cerberus.prototype.add = function (key, settings) {
 
   var schema = this.toJSON();
   schema[key] = settings;
-  return new Cerberus(schema);
+  return new Schema(schema);
 };
 
 /**
- * Return a new `Cerberus` schema, removing a property by `key`.
+ * Return a new `Schema`, removing a property by `key`.
  *
  * @param {String} key
- * @return {Cerberus}
+ * @return {Schema}
  */
 
-Cerberus.prototype.remove = function (key) {
+Schema.prototype.remove = function (key) {
   var schema = this.toJSON();
   delete schema[key];
-  return new Cerberus(schema);
+  return new Schema(schema);
 };
 
 /**
  * Generate methods for each type.
  */
 
-for (var type in types) Cerberus.prototype[type] = generate(type, types[type]);
+for (var type in types) Schema.prototype[type] = generate(type, types[type]);
 
 /**
  * Generate an attr definer given a `type` and `validator`.
@@ -105,7 +105,7 @@ for (var type in types) Cerberus.prototype[type] = generate(type, types[type]);
 function generate (type, validator) {
 
   /**
-   * Return a new `Cerberus` schema, adding a property of `type` by `key` with
+   * Return a new `Schema`, adding a property of `type` by `key` with
    * a `validator` and optional extra `settings`.
    *
    * @param {String} attr

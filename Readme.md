@@ -1,21 +1,20 @@
 
-# cerberus
+# schema
 
   A simple, fluent API for generating immutable schemas.
 
 ## Installation
 
-    $ component install segmentio/cerberus
-    $ npm install cerberus
+    $ component install component/schema
 
 ## Example
 
-What's nice about Cerberus being immutable is that it makes sharing schemas between different parts of your codebase very simple. For example, you might have a basic user schema:
+What's nice about your schemas being immutable is that it makes sharing them between different parts of your codebase very simple. For example, you might have a basic user schema:
 
 ```js
-var Cerberus = require('cerberus');
+var Schema = require('schema');
 
-var user = new Cerberus()
+var user = new Schema()
   .string('id', { required: true })
   .string('name')
   .email('email')
@@ -88,13 +87,13 @@ var fixtureUser = user
 
 ## API
 
-#### new Cerberus()
+#### new Schema()
 
-  Create a new `Cerberus` schema.
+  Create a new `Schema`.
 
 #### #<type>(key, settings)
 
-  Return a new `Cerberus` schema, adding a property of `type` by `key` with optional extra `settings`. The supported types are:
+  Return a new `Schema`, adding a property of `type` by `key` with optional extra `settings`. The supported types are:
 
     array
     boolean
@@ -109,11 +108,11 @@ var fixtureUser = user
 
 #### #add(key, settings)
 
-  Return a new `Cerberus` schema, adding a non-typed property by `key` with optional `settings`. If you pass a `required: true` setting, an required validator will be added.
+  Return a new `Schema`, adding a non-typed property by `key` with optional `settings`. If you pass a `required: true` setting, an required validator will be added.
 
 #### #remove(key)
 
-  Return a new `Cerberus` schema, removing a property by `key`.
+  Return a new `Schema`, removing a property by `key`.
 
 #### #toJSON()
 
