@@ -1,7 +1,7 @@
 {
   "name": "schema",
   "description": "A simple, fluent API for generating immutable schemas.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "dependencies": {
     "clone-component": "~0.1.0",
