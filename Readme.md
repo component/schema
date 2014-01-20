@@ -51,7 +51,7 @@ user.toJSON();
 
 But then on your servers, you might want to add a few private properties to a user that you don't expose to the public:
 
-```
+```js
 var user = require('user-schema');
 
 var backendUser = user
@@ -61,7 +61,7 @@ var backendUser = user
 
 And in the browser, you might want to add a few conveniences:
 
-```
+```js
 var user = require('user-schema');
 
 var frontendUser = user
@@ -71,7 +71,7 @@ var frontendUser = user
 
 And in your tests, you might want to have different defaults, so that creating generating fixtures is super simple:
 
-```
+```js
 var user = require('user-schema');
 var uid = require('uid');
 var randomName = require('random-name');
