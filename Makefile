@@ -1,17 +1,20 @@
 
+C8=node_modules/.bin/component
+TEST=node_modules/.bin/component-test
+
 build: components index.js
-	@component build --dev
+	@$(C8) build --dev
 
 clean:
 	@rm -rf build components node_modules
 
 components: component.json
-	@component install --dev
+	@$(C8) install --dev
 
 node_modules: package.json
 	@npm install
 
 test: build
-	@component test phantom
+	@$(TEST) phantom
 
 .PHONY: clean test
