@@ -7,6 +7,6 @@
     "clone-component": "~0.1.0",
     "is-email": "~0.1.1",
     "is-url": "~1.0.0",
-    "is": "git://github.com/ianstormtaylor/is#0.1.0"
+    "is": "ianstormtaylor/is#0.1.1"
   }
 }
